@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ahmedsakr98/first-node-docker-compose:1.0.0
+    image: ahmedsakr98/first-node-docker-compose:jenkins
     environment:
       - PORT=3000
     ports:

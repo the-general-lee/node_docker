@@ -9,11 +9,11 @@ pipeline {
                                                usernameVariable: 'DOCKER_USERNAME', 
                                                passwordVariable: 'DOCKER_PASSWORD')]) {
                     script {
-                        sh "docker compose"
+                        sh "docker compose up"
                         // Log in to Docker Hub
                         sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"                       
                         // Push the image
-                        sh "${DOCKER_USERNAME}/first-node-docker-compose:jenkins"
+                        sh "docker push ${DOCKER_USERNAME}/first-node-docker-compose:jenkins"
                          }
                 }
             }

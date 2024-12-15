@@ -5,11 +5,17 @@ pipeline {
         stage('Docker Build') {
             steps {
                 echo 'Pushing Docker Image to Docker Hub...'
-                script {
-                    sh "docker compose up"                      
-                    // Push the image
-                    sh "docker push ahmedsakr98/first-node-docker-compose:jenkins"
-                        }
+                withCredentials([usernamePassword(credentialsId: 'my-docker-hub', 
+                                               usernameVariable: 'DOCKER_USERNAME', 
+                                               passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        sh "docker compose"
+                        // Log in to Docker Hub
+                        sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"                       
+                        // Push the image
+                        sh "${DOCKER_USERNAME}/first-node-docker-compose:jenkins"
+                         }
+                }
             }
         }
     }

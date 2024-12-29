@@ -1,7 +1,18 @@
 pipeline {
-    agent any
+    agent {label nodejs}
 
     stages {
+        stage('Test Cases') {
+            steps {
+                echo 'Running npm tests...'
+                script {
+                    // Run npm test
+                    sh "npm install"
+                    sh "npm test"
+                }
+            }
+        }
+
         stage('Docker Build') {
             steps {
                 echo 'Pushing Docker Image to Docker Hub...'

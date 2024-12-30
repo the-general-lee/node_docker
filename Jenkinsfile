@@ -20,7 +20,7 @@ pipeline {
                         withCredentials([usernamePassword(credentialsId: 'my-docker-hub', 
                                                   usernameVariable: 'DOCKER_USERNAME', 
                                                   passwordVariable: 'DOCKER_PASSWORD')]) {
-                            sh "docker-compose up"                   
+                            sh "docker-compose build"                   
                             sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
                             // Push the image
                             sh "docker push ahmedsakr98/first-node-docker-compose:jenkins"
